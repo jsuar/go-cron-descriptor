@@ -1,3 +1,7 @@
+// Package crondescriptor converts cron expressions into human readable
+// strings. The package includes four options for minor customization
+// of output.
+//
 package crondescriptor
 
 import (
@@ -12,15 +16,15 @@ import (
 )
 
 var (
-	ErrInvalidDescriptionType = fmt.Errorf("Invalid description type provided")
-	ErrInvalidSegmentCase     = fmt.Errorf("Invalid case reached; please investigate")
-	ErrBlankExpression        = fmt.Errorf("Expression cannot be blank")
-	ErrInvalidFieldCount      = fmt.Errorf("At least five fields are required")
-	ErrFieldCountExceeded     = fmt.Errorf("Expression has too many fields; should not exceed 7 fields")
-	ErrWeekStartIsZero        = fmt.Errorf("Week start already 0; cannot decrement further")
-	ErrInvalidCharacters      = fmt.Errorf("Invalid character(s). Allowed value: 0-23. Allowed special characters: '*' ',' '-'")
-	ErrInvalidMinuteFormat    = fmt.Errorf("Invalid minute format")
-	ErrInvalidSecondsValue    = fmt.Errorf("Invalid seconds value. Only 0-59 allowed)")
+	ErrInvalidDescriptionType = fmt.Errorf("invalid description type provided")
+	ErrInvalidSegmentCase     = fmt.Errorf("invalid case reached; please investigate")
+	ErrBlankExpression        = fmt.Errorf("expression cannot be blank")
+	ErrInvalidFieldCount      = fmt.Errorf("at least five fields are required")
+	ErrFieldCountExceeded     = fmt.Errorf("expression has too many fields; should not exceed 7 fields")
+	ErrWeekStartIsZero        = fmt.Errorf("week start already 0; cannot decrement further")
+	ErrInvalidCharacters      = fmt.Errorf("invalid character(s). allowed value: 0-23. allowed special characters: '*' ',' '-'")
+	ErrInvalidMinuteFormat    = fmt.Errorf("invalid minute format")
+	ErrInvalidSecondsValue    = fmt.Errorf("invalid seconds value. only 0-59 allowed)")
 )
 
 // CronDaysShort contains the days of the week short form
@@ -61,6 +65,9 @@ func NewCronDescriptor(cronExpr string) (*CronDescriptor, error) {
 	}
 
 	logger, err := cfg.Build()
+	if err != nil {
+		return nil, err
+	}
 
 	options := Options{
 		CasingType:          CasingTypeSentence,
@@ -96,6 +103,9 @@ func NewCronDescriptorWithOptions(cronExpr string, options Options) (*CronDescri
 	}
 
 	logger, err := cfg.Build()
+	if err != nil {
+		return nil, err
+	}
 
 	cd := &CronDescriptor{
 		Expression: cronExpr,
@@ -799,7 +809,7 @@ func (cd *CronDescriptor) indexOf(slice []string, item string) int {
 
 func (cd *CronDescriptor) contains(s string, subStrs []string) bool {
 	for _, substr := range subStrs {
-		if strings.Index(s, substr) != -1 {
+		if strings.Contains(s, substr) {
 			return true
 		}
 	}
@@ -829,7 +839,7 @@ func (cd *CronDescriptor) getSegmentDescription(expr string,
 	case expr == "*":
 		*description = allDescription
 
-	case cd.contains(expr, []string{"/", "-", ","}) == false:
+	case !cd.contains(expr, []string{"/", "-", ","}):
 		cd.sugarLog.Debugf("Expression %s does not contain \"/\", \"-\", \",\"", expr)
 		descFormat := getDescFormat(expr)
 		cd.sugarLog.Debugf("Description format: %s", descFormat)
@@ -862,9 +872,9 @@ func (cd *CronDescriptor) getSegmentDescription(expr string,
 			temp := fmt.Sprintf("%s%s", *description, *betweenSegDescr)
 			description = &temp
 
-		} else if cd.contains(segments[0], []string{"*", ","}) == false {
-			rangeItemDesc := getDescFormat(segments[0])
-			rangeItemDesc = strings.ReplaceAll(segments[0], ", ", "")
+		} else if !cd.contains(segments[0], []string{"*", ","}) {
+			// rangeItemDesc := getDescFormat(segments[0])
+			rangeItemDesc := strings.ReplaceAll(segments[0], ", ", "")
 
 			var temp string
 			if descriptionType == Seconds || descriptionType == Minutes {

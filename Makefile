@@ -36,7 +36,7 @@ spellcheck:
 .PHONY: spellcheck
 
 staticcheck:
-	@command -v staticcheck > /dev/null 2>&1 || go get honnef.co/go/tools/cmd/staticcheck
+	@command -v staticcheck > /dev/null 2>&1 || (cd tools && go get honnef.co/go/tools/cmd/staticcheck && cd ..)
 	@staticcheck -checks="all" -tests $(GOFMT_FILES)
 .PHONY: staticcheck
 

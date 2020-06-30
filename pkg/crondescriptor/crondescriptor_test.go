@@ -368,6 +368,9 @@ func Test_getDayOfTheWeekDescription(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cd, err := NewCronDescriptor(tt.fields.expression)
+			if err != nil {
+				t.Errorf(err.Error())
+			}
 			got, err := cd.getDayOfTheWeekDescription()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CronExpression.getDayOfTheWeekDescription() error = %v, wantErr %v", err, tt.wantErr)
@@ -419,6 +422,9 @@ func TestCronExpression_getHoursDescription(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cd, err := NewCronDescriptor(tt.fields.expression)
+			if err != nil {
+				t.Errorf(err.Error())
+			}
 			got, err := cd.getHoursDescription()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CronExpression.getHoursDescription() error = %v, wantErr %v", err, tt.wantErr)
@@ -489,6 +495,9 @@ func TestCronExpression_getMinutesDescription(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cd, err := NewCronDescriptor(tt.fields.expression)
+			if err != nil {
+				t.Errorf(err.Error())
+			}
 			got, err := cd.getMinutesDescription()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CronExpression.getMinutesDescription() error = %v, wantErr %v", err, tt.wantErr)
@@ -547,6 +556,9 @@ func TestCronExpression_getSecondsDescription(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cd, err := NewCronDescriptor(tt.fields.expression)
+			if err != nil {
+				t.Errorf(err.Error())
+			}
 			got, err := cd.getSecondsDescription()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CronExpression.getSecondsDescription() error = %v, wantErr %v", err, tt.wantErr)
@@ -599,6 +611,9 @@ func TestCronExpression_getTimeOfDayDescription(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cd, err := NewCronDescriptor(tt.fields.expression)
+			if err != nil {
+				t.Errorf(err.Error())
+			}
 			got, err := cd.getTimeOfDayDescription()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CronExpression.getTimeOfDayDescription() error = %v, wantErr %v", err, tt.wantErr)
@@ -696,6 +711,9 @@ func TestCronExpression_getFullDescription(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.fields.expression, func(t *testing.T) {
 			cd, err := NewCronDescriptor(tt.fields.expression)
+			if err != nil {
+				t.Errorf(err.Error())
+			}
 			got, err := cd.getFullDescription()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CronExpression.getFullDescription() error = %v, wantErr %v", err, tt.wantErr)
