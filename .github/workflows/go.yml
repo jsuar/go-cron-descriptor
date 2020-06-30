@@ -4,11 +4,9 @@ on:
   push:
     branches: 
       - master
-      - gh-action-testing
   pull_request:
     branches:
       - master
-      - gh-action-testing
 
 jobs:
 
