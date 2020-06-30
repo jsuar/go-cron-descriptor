@@ -6,7 +6,9 @@ on:
       - master
       - gh-action-testing
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+      - gh-action-testing
 
 jobs:
 
