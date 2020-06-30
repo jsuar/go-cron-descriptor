@@ -37,7 +37,7 @@ spellcheck:
 
 staticcheck:
 	@command -v staticcheck > /dev/null 2>&1 || go get honnef.co/go/tools/cmd/staticcheck
-	@staticcheck -checks="all" -tests $(GOFMT_FILES)
+	@staticcheck -checks="all" -tests $(GOFMT_FILES) github.com/jsuar/go-cron-descriptor/pkg/crondescriptor
 .PHONY: staticcheck
 
 test:
