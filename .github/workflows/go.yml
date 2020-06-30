@@ -32,8 +32,11 @@ jobs:
             dep ensure
         fi
 
-    # - name: Build
-    #   run: go build -v .
+    - name: Format
+      run: make fmtcheck
 
-    # - name: Test
-    #   run: go test -v .
+    - name: Spell Check
+      run: make spellcheck
+
+    - name: Static Check
+      run: make staticcheck
