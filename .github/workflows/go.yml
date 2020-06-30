@@ -2,7 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ master, gh-action-testing ]
+    branches: 
+      - master
+      - gh-action-testing
   pull_request:
     branches: [ master ]
 
