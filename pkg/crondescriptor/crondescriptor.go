@@ -21,10 +21,11 @@ var (
 	ErrBlankExpression        = fmt.Errorf("expression cannot be blank")
 	ErrInvalidFieldCount      = fmt.Errorf("at least five fields are required")
 	ErrFieldCountExceeded     = fmt.Errorf("expression has too many fields; should not exceed 7 fields")
-	ErrWeekStartIsZero        = fmt.Errorf("week start already 0; cannot decrement further")
+	ErrWeekStartIsZero        = fmt.Errorf("week start already 0; check DayOfWeekIndexZero option")
 	ErrInvalidCharacters      = fmt.Errorf("invalid character(s). allowed value: 0-23. allowed special characters: '*' ',' '-'")
 	ErrInvalidMinuteFormat    = fmt.Errorf("invalid minute format")
 	ErrInvalidSecondsValue    = fmt.Errorf("invalid seconds value. only 0-59 allowed)")
+	ErrInvalidDayOfWeekRange  = fmt.Errorf("day of week range can only be 0-6 or 1-7 depending on DayOfWeekIndexZero option")
 )
 
 // CronDaysShort contains the days of the week short form
@@ -613,6 +614,10 @@ func (cd *CronDescriptor) getDayOfTheWeekDescription() (*string, error) {
 			dayInt, err := strconv.Atoi(expr)
 			if err != nil {
 				return nil, err
+			}
+
+			if dayInt >= len(CronDaysLong) {
+				return nil, ErrInvalidDayOfWeekRange
 			}
 
 			return &CronDaysLong[dayInt], nil
