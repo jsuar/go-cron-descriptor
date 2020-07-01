@@ -25,6 +25,27 @@ go get https://github.com/jsuar/go-cron-descriptor
 
 ## Usage
 
+### Options
+
+#### `DayOfWeekIndexZero`
+
+Toggling this option allows for Sunday to be either 0 or 1 in the day of the week field.
+
+```
+*/5 15 * * 0-6 => Every 5 minutes, at 03:00 PM, Sunday through Saturday
+*/5 15 * * 1-7 => Every 5 minutes, at 03:00 PM, Sunday through Saturday
+```
+
+### Debug Statements
+
+Since I was unfamiliar with the code and logic, I added many debug statements throughout the codebase for troubleshooting. Set the below environment variable to see debug statements.
+
+```
+export CRON_DESCRIPTOR_LOG_LEVEL=debug
+```
+
+### Examples
+
 #### Zero based day of week
 
     package main
@@ -68,14 +89,6 @@ Setting `DayOfWeekIndexZero` to `false` will treat Sunday as the first day of th
 Output:
 
     */5 15 * * 1-5 => Every 5 minutes, at 03:00 PM, Sunday through Thursday
-
-### Debug Statements
-
-Since I was unfamiliar with the code and logic, I added many debug statements throughout the codebase for troubleshooting. Set the below environment variable to see debug statements.
-
-```
-export CRON_DESCRIPTOR_LOG_LEVEL=debug
-```
 
 ### Contributing
 
