@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	cronExpression := "*/5 15 * * 1-5"
+	cronExpression := "*/5 15 * * 0-5"
 	cd, err := crondescriptor.NewCronDescriptor(cronExpression)
 	if err != nil {
 		cd.Logger.Panic(err.Error())
@@ -21,6 +21,7 @@ func main() {
 
 	cd.Options.Verbose = false
 	cd.Options.DayOfWeekIndexZero = false
+	cronExpression = "*/5 15 * * 1-6"
 	if err = cd.Parse(cronExpression); err != nil {
 		cd.Logger.Panic(err.Error())
 	}
