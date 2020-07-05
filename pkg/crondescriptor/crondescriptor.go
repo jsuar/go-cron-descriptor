@@ -946,9 +946,8 @@ func (cd *CronDescriptor) generateBetweenSegmentDescription(betweenExpr string,
 	getBetweenDescFormat func(string, string) string,
 	getSingleItemDesc func(string) (*string, error)) (*string, error) {
 
-	var description *string
 	defaultDescription := ""
-	description = &defaultDescription
+	description := &defaultDescription
 
 	cd.sugarLog.Debugf("Split %s by -", betweenExpr)
 	betweenSegments := strings.Split(betweenExpr, "-")

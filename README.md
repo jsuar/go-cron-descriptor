@@ -1,12 +1,20 @@
 # go-cron-descriptor
 
-[![GoDoc](https://img.shields.io/badge/GoDoc-reference-007d9c?style=flat-square)](https://pkg.go.dev/github.com/jsuar/go-cron-descriptor/pkg/envconfig)
+[![GoDoc](https://img.shields.io/badge/GoDoc-reference-007d9c?style=flat-square)](https://pkg.go.dev/github.com/jsuar/go-cron-descriptor/pkg/envconfig) [![Go Report Card](https://goreportcard.com/badge/github.com/jsuar/go-cron-descriptor)](https://goreportcard.com/report/github.com/jsuar/go-cron-descriptor)
 
-A Go library that converts cron expressions into human readable strings. Translated to Go from [cron-expression-descriptor (C#)](https://github.com/bradymholt/cron-expression-descriptor) via [Cron Descriptor (Python)](https://github.com/Salamek/cron-descriptor).
+Go-cron-descriptor translates [cron expressions](https://en.wikipedia.org/wiki/Cron) to English for quicker or easier interpretation of the expression. Only English is supported at the moment (see [Contributing](#contributing) if you would like to help localize to other languages). The ability to convert cron expressions to a human readable format allows for a better user experience. For example, in another project of mine, [the nomad-custodian CLI](https://github.com/jsuar/nomad-custodian#listing-batch-type-jobs) lists batch jobs which includes the associated cron expression and human readable format.
 
-Original Author & Credit: Brady Holt (http://www.geekytidbits.com).
+Translated to Go from [cron-expression-descriptor (C#)](https://github.com/bradymholt/cron-expression-descriptor) via [Cron Descriptor (Python)](https://github.com/Salamek/cron-descriptor). Original Author & Credit: Brady Holt (http://www.geekytidbits.com).
 
 **Note:** I did not write the logic for this package. I've only made minor modifications to better conform to the Go language. If you see incorrect results or have any other recommended changes, please let me know by filing an issue.
+
+#### Quick Examples
+```
+* * * * *         =>    Every minute
+0 0 * * FRI       =>    At 00:00 AM, only on Friday
+0 1 12 */7 *      =>    At 01:00 AM, on day 12 of the month, every 7 months
+0 0 12 LW * ?     =>    At 12:00 PM, on the last weekday of the month
+```
 
 ## Features
 
